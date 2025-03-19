@@ -11,6 +11,14 @@ public class Producto {
     public Producto() {
     }
 
+    @Override
+    public String toString() {
+        return id + " | " +
+                nombre + " | " +
+                precio + " | " +
+                fechaRegistro;
+    }
+
     public Producto(Long id, Date fechaRegistro, String nombre, Integer precio) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;

@@ -1,5 +1,8 @@
 package apps.desarrollo1;
 
+import apps.desarrollo1.modelo.Producto;
+import apps.desarrollo1.repositorio.ProductoRepositorioImpl;
+import apps.desarrollo1.repositorio.Repositorio;
 import apps.desarrollo1.util.ConexionBaseDatos;
 
 import javax.xml.transform.Result;
@@ -7,19 +10,12 @@ import java.sql.*;
 
 public class EjemploJdbc {
     public static void main(String[] args) {
-        try (Connection conn = ConexionBaseDatos.getInstance();
-             Statement stmt = conn.createStatement();
-             ResultSet resultado = stmt.executeQuery("SELECT * FROM productos")) {
 
-            while (resultado.next()) {
-                System.out.print(resultado.getInt("id"));
-                System.out.print(" | ");
-                System.out.print(resultado.getString("nombre"));
-                System.out.print(" | ");
-                System.out.print(resultado.getInt("precio"));
-                System.out.print(" | ");
-                System.out.println(resultado.getDate("fecha_registro"));
-            }
+        try (Connection conn = ConexionBaseDatos.getInstance()) {
+            Repositorio<Producto> repositorio = new ProductoRepositorioImpl();
+            repositorio.listar().forEach(System.out::println);
+
+            System.out.println(repositorio.porId(2L));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
