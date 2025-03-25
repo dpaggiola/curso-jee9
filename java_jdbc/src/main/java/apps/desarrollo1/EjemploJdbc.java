@@ -1,5 +1,6 @@
 package apps.desarrollo1;
 
+import apps.desarrollo1.modelo.Categoria;
 import apps.desarrollo1.modelo.Producto;
 import apps.desarrollo1.repositorio.ProductoRepositorioImpl;
 import apps.desarrollo1.repositorio.Repositorio;
@@ -21,10 +22,15 @@ public class EjemploJdbc {
 
             System.out.println("=========== insertar nuevo producto ===========");
             Producto producto = new Producto();
-            producto.setNombre("Teclado mecánico");
-            producto.setPrecio(500);
+            producto.setNombre("Teclado Razer mecánico");
+            producto.setPrecio(550);
             producto.setFechaRegistro(new Date());
+            Categoria categoria = new Categoria();
+            categoria.setId(3L);
+            producto.setCategoria(categoria);
+
             repositorio.guardar(producto);
+
             System.out.println("Producto guardado con éxito");
             repositorio.listar().forEach(System.out::println);
 
